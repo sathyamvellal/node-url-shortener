@@ -6,13 +6,14 @@
   };
 
   _nus.prototype.init = function () {
-    this._input_ = $(this._form_).find('input');
+    this._input_ = $('#link');
+    this._hash_ = $('#hash_');
 
     if (!this.check(this._input_.val())) {
       return this.alert(this._errormsg_, true);
     }
 
-    this.request(this._input_.val());
+    this.request(this._hash_.val(), this._input_.val());
   };
 
   _nus.prototype.check = function (s) {
@@ -30,9 +31,10 @@
       + '</div>').insertBefore(this._form_);
   };
 
-  _nus.prototype.request = function (url) {
+  _nus.prototype.request = function (hash_, url) {
     var self = this;
-    $.post(self._api_, { long_url: url }, function (data) {
+    console.log('_nus:request:hash' + hash_);
+    $.post(self._api_, { hash_: hash_, long_url: url }, function (data) {
       if (data.hasOwnProperty('status_code') && data.hasOwnProperty('status_txt')) {
         if (parseInt(data.status_code) == 200) {
           self._input_.val(data.short_url).select();
