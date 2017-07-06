@@ -33,7 +33,6 @@
 
   _nus.prototype.request = function (hash_, url) {
     var self = this;
-    console.log('_nus:request:hash' + hash_);
     $.post(self._api_, { hash_: hash_, long_url: url }, function (data) {
       if (data.hasOwnProperty('status_code') && data.hasOwnProperty('status_txt')) {
         if (parseInt(data.status_code) == 200) {
